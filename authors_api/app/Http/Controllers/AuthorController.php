@@ -22,6 +22,7 @@ class AuthorController extends Controller
 
     /**
      * Return the list of authors
+     * 
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
     public function index(): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
@@ -32,6 +33,10 @@ class AuthorController extends Controller
 
     /**
      * Create an author
+     * 
+     * @param Illuminate\Http\Request $request
+     * @param App\Http\Author $author
+     * 
      * @return App\Http\Resources\AuthorResource
      */
     public function store(Request $request, Author $author): AuthorResource
@@ -48,19 +53,27 @@ class AuthorController extends Controller
 
     /**
      * Obtain details about a specific author
+     * 
+     * @param string $author
+     * 
      * @return App\Http\Resources\AuthorResource
      */
-    public function show($author): AuthorResource
+    public function show(string $author): AuthorResource
     {
+        dd(gettype($author));
         $author = Author::findOrFail($author);
         return new AuthorResource($author); 
     }
 
     /**
      * Update an existing author
+     * 
+     * @param Illuminate\Http\Request $request
+     * @param string $author
+     * 
      * @return App\Http\Resources\AuthorResource
      */
-    public function update(Request $request, $author): AuthorResource
+    public function update(Request $request, string $author): AuthorResource
     {
         $author = Author::findOrFail($author);
 
@@ -90,9 +103,12 @@ class AuthorController extends Controller
 
     /**
      * Delete an existing authors
+     * 
+     * @param string $author
+     * 
      * @return App\Http\Resources\AuthorResource
      */
-    public function destroy($author): AuthorResource
+    public function destroy(string $author): AuthorResource
     {
         $author = Author::findOrFail($author);
         
