@@ -52,7 +52,7 @@ class AuthorController extends Controller
     }
 
     /**
-     * Obtain details about a specific author
+     * Show an existing author
      * 
      * @param string $author
      * 
