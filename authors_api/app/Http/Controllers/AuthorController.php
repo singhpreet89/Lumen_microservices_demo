@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Author;
-use App\Http\Resources\AuthorCollection;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
+use App\Http\Resources\AuthorResource;
+use App\Http\Resources\AuthorCollection;
 
 class AuthorController extends Controller
 {
@@ -20,9 +22,9 @@ class AuthorController extends Controller
 
     /**
      * Return the list of authors
-     * @return Illuminate\Http\Response
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
-    public function index()
+    public function index(): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
     {
         $authors = Author::all();
         return AuthorCollection::collection($authors);
@@ -30,37 +32,71 @@ class AuthorController extends Controller
 
     /**
      * Create an author
-     * @return Illuminate\Http\Response
+     * @return App\Http\Resources\AuthorResource
      */
-    public function store(Request $request, Author $author)
+    public function store(Request $request, Author $author): AuthorResource
     {
-        // 
+        $this->validate($request, [
+            'name' => 'required|string|max:255|unique:authors',
+            'gender' => 'required|string|in:male,female',
+            'country' => 'required|string|max:255'
+        ]);
+
+        $author = $author->create($request->all());
+        return new AuthorResource($author);
     }
 
     /**
      * Obtain details about a specific author
-     * @return Illuminate\Http\Response
+     * @return App\Http\Resources\AuthorResource
      */
-    public function show(Author $author)
+    public function show($author): AuthorResource
     {
-        // 
+        $author = Author::findOrFail($author);
+        return new AuthorResource($author); 
     }
 
     /**
      * Update an existing author
-     * @return Illuminate\Http\Response
+     * @return App\Http\Resources\AuthorResource
      */
-    public function update(Request $request, Author $author)
+    public function update(Request $request, $author): AuthorResource
     {
-        // 
+        $author = Author::findOrFail($author);
+
+        $this->validate($request, [
+            'name' => [
+                'sometimes', 'required', 'string', 'max:255', Rule::unique('authors')->ignore($author)
+            ],
+            'gender' => 'sometimes|required|string|in:male,female',
+            'country' => 'sometimes|required|string|max:255'
+        ]);
+
+        if($request->has('name')) {
+            $author->name = $request->name;
+        }
+
+        if($request->has('gender')) {
+            $author->gender = $request->gender;
+        }
+
+        if($request->has('country')) {
+            $author->country = $request->country;
+        }
+
+        $author->save();
+        return new AuthorResource($author);
     }
 
     /**
      * Delete an existing authors
-     * @return Illuminate\Http\Response
+     * @return App\Http\Resources\AuthorResource
      */
-    public function destroy(Author $author)
+    public function destroy($author): AuthorResource
     {
-        // 
+        $author = Author::findOrFail($author);
+        
+        $author->delete();
+        return new AuthorResource($author);
     }
 }
