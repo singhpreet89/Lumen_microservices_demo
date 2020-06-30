@@ -60,7 +60,6 @@ class AuthorController extends Controller
      */
     public function show(string $author): AuthorResource
     {
-        dd(gettype($author));
         $author = Author::findOrFail($author);
         return new AuthorResource($author); 
     }
