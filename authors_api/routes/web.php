@@ -17,8 +17,8 @@
 //     return $router->app->version();
 // });
 
-$router->get('authors', 'AuthorController@index');
-$router->post('authors', 'AuthorController@store');
-$router->get('authors/{author}', 'AuthorController@show');
-$router->put('authors/{author}', 'AuthorController@update');
-$router->delete('authors/{author}', 'AuthorController@destroy');
+$router->get('authors', ['as' => 'authors.index', 'uses' => 'AuthorController@index']);
+$router->post('authors', ['as' => 'authors.store', 'uses' => 'AuthorController@store']);
+$router->get('authors/{author}', ['as' => 'authors.show', 'uses' => 'AuthorController@show']);
+$router->put('authors/{author}', ['as' => 'authors.update', 'uses' => 'AuthorController@update']);
+$router->delete('authors/{author}', ['as' => 'authors.destroy', 'uses' => 'AuthorController@destroy']);
