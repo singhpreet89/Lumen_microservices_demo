@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Author;
+use App\Http\Resources\AuthorCollection;
 use Illuminate\Http\Request;
 
 class AuthorController extends Controller
@@ -23,7 +24,8 @@ class AuthorController extends Controller
      */
     public function index()
     {
-        //
+        $authors = Author::all();
+        return AuthorCollection::collection($authors);
     }
 
     /**
