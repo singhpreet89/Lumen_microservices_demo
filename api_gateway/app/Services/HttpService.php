@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Http;
 
 class HttpService
@@ -18,7 +17,7 @@ class HttpService
      * 
      *  @return array
      */
-    public function performRequest(string $baseUri, string $method, string $requestUrl, array $payload = [], array $headers = []): array
+    public function performRequest(string $baseUri, string $method, string $requestUrl, array $payload = [], array $headers = []): \Illuminate\Http\Response
     {
         if(empty($headers)) {
             $response = Http::$method("{$baseUri}/{$requestUrl}", $payload);
@@ -26,6 +25,6 @@ class HttpService
             $response = Http::withHeaders($headers)->$method("{$baseUri}/{$requestUrl}", $payload);
         }
 
-        return $response->json();
+        return response($response->json(), $response->status());
     }
 }

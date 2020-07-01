@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Services\BookService;
+use App\Services\AuthorService;
 
 class BookController extends Controller
 {
@@ -15,13 +16,21 @@ class BookController extends Controller
     public BookService $BookService;
 
     /**
+     *  Service Object to consume the authors_api microservice
+     * 
+     *  @var AuthorService $authorService
+     */
+    public AuthorService $authorService;
+
+    /**
      *  Create a new controller instance.
      *
      *  @return void
      */
-    public function __construct(BookService $bookService)
+    public function __construct(BookService $bookService, AuthorService $authorService)
     {
         $this->bookService = $bookService;
+        $this->authorService = $authorService;
     }
 
      /**
@@ -43,7 +52,14 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
-        return $this->bookService->storeBook($request->all());
+        // ? Store request will only be processed if the provided Author exists
+        $response = $this->authorService->showAuthor($request->author_id);
+    
+        if($response->status() === 200) {
+            return $this->bookService->storeBook($request->all());
+        } else {
+            return $response;
+        }
     }
 
     /**
@@ -68,6 +84,17 @@ class BookController extends Controller
      */
     public function update(Request $request, string $book)
     {
+        if($request->has('author_id')) {
+            // ? Store request will only be processed if the provided Author exists
+            $response = $this->authorService->showAuthor($request->author_id);
+        
+            if($response->status() === 200) {
+                return $this->bookService->updateBook($request->all(), $book);
+            } else {
+                return $response;
+            }
+        }
+        
         return $this->bookService->updateBook($request->all(), $book);    
     }
 

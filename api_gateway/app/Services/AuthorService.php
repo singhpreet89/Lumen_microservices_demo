@@ -53,7 +53,7 @@ class AuthorService
      * 
      *  @return array
      */
-    public function showAuthor(string $author)
+    public function showAuthor(string $author): \Illuminate\Http\Response
     {
         return $this->httpService->performRequest($this->baseUri, "GET", "/authors/{$author}");
     }
