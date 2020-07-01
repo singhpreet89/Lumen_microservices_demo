@@ -14,6 +14,18 @@ class BookCollection extends JsonResource
      */
     public function toArray($request)
     {
+        /**
+         *  ? If the environment variable: API_GATEWAY_BASE_URL is defined
+         *  ?   AND
+         *  ? The request is coming from the api_gateway 
+         *  ?   THEN 
+         *  ? Use the environment variable: API_GATEWAY_BASE_URL for "href" link  
+         */ 
+        $apiGateway = null;
+        if(env('API_GATEWAY_BASE_URL') && preg_match('/GuzzleHttp*/', $request->server('HTTP_USER_AGENT'))) {
+            $apiGateway = env('API_GATEWAY_BASE_URL');
+        }
+
         return [
             'id' => $this->id,
             'author_id' => $this->author_id,
@@ -25,7 +37,7 @@ class BookCollection extends JsonResource
             'links' => [
                 [
                     'rel' => 'self',
-                    'href' => route('books.show', ['book' => $this->id]),
+                    'href' => $apiGateway ? "{$apiGateway}/$this->id" : route('books.show', ['book' => $this->id]),
                 ],
             ],
         ];
