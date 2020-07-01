@@ -36,9 +36,9 @@ class BookController extends Controller
      /**
      *  Get all existing books
      * 
-     *  @return array
+     *  @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(): \Illuminate\Http\Response
     {
         return $this->bookService->indexBooks();
     }
@@ -48,9 +48,9 @@ class BookController extends Controller
      * 
      *  @param Illuminate\Http\Request $request
      * 
-     *  @return array
+     *  @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request): \Illuminate\Http\Response
     {
         // ? Store request will only be processed if the provided Author exists
         $response = $this->authorService->showAuthor($request->author_id);
@@ -67,9 +67,9 @@ class BookController extends Controller
      * 
      *  @param string $book
      * 
-     *  @return array
+     *  @return \Illuminate\Http\Response
      */
-    public function show(string $book)
+    public function show(string $book): \Illuminate\Http\Response
     {
         return $this->bookService->showBook($book);
     }
@@ -80,9 +80,9 @@ class BookController extends Controller
      *  @param Illuminate\Http\Request $request
      *  @param string $book
      * 
-     *  @return array
+     *  @return \Illuminate\Http\Response
      */
-    public function update(Request $request, string $book)
+    public function update(Request $request, string $book): \Illuminate\Http\Response
     {
         if($request->has('author_id')) {
             // ? Store request will only be processed if the provided Author exists
@@ -103,9 +103,9 @@ class BookController extends Controller
      * 
      *  @param string $book
      * 
-     *  @return array
+     *  @return \Illuminate\Http\Response
      */
-    public function destroy(string $book)
+    public function destroy(string $book): \Illuminate\Http\Response
     {
         return $this->bookService->destroyBook($book);
     }

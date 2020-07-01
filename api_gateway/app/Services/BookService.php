@@ -27,9 +27,9 @@ class BookService
     /**
      *  Get all books
      * 
-     *  @return array
+     *  @return \Illuminate\Http\Response
      */
-    public function indexBooks()
+    public function indexBooks(): \Illuminate\Http\Response
     {
         return $this->httpService->performRequest($this->baseUri, "GET", "/books");
     }
@@ -39,9 +39,9 @@ class BookService
      * 
      *  @param array $request 
      * 
-     *  @return array
+     *  @return \Illuminate\Http\Response
      */
-    public function storeBook(array $request)
+    public function storeBook(array $request): \Illuminate\Http\Response
     {
         return $this->httpService->performRequest($this->baseUri, "POST", "/books", $request);
     }
@@ -51,9 +51,9 @@ class BookService
      * 
      *  @param string $book 
      * 
-     *  @return array
+     *  @return \Illuminate\Http\Response
      */
-    public function showBook(string $book)
+    public function showBook(string $book): \Illuminate\Http\Response
     {
         return $this->httpService->performRequest($this->baseUri, "GET", "/books/{$book}");
     }
@@ -64,9 +64,9 @@ class BookService
      *  @param array $request
      *  @param string $book 
      * 
-     *  @return array
+     *  @return \Illuminate\Http\Response
      */
-    public function updateBook(array $request, string $book)
+    public function updateBook(array $request, string $book): \Illuminate\Http\Response
     {
         return $this->httpService->performRequest($this->baseUri, "PUT", "/books/{$book}", $request);
     }
@@ -76,9 +76,9 @@ class BookService
      * 
      *  @param string $book 
      * 
-     *  @return array
+     *  @return \Illuminate\Http\Response
      */
-    public function destroyBook(string $book)
+    public function destroyBook(string $book): \Illuminate\Http\Response
     {
         return $this->httpService->performRequest($this->baseUri, "DELETE", "/books/{$book}");
     }

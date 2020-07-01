@@ -15,7 +15,7 @@ class HttpService
      *  @param array $payload
      *  @param array $headers
      * 
-     *  @return array
+     *  @return \Illuminate\Http\Response
      */
     public function performRequest(string $baseUri, string $method, string $requestUrl, array $payload = [], array $headers = []): \Illuminate\Http\Response
     {

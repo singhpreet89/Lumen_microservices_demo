@@ -27,9 +27,9 @@ class AuthorController extends Controller
     /**
      *  Get all existing authors
      * 
-     *  @return array
+     *  @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(): \Illuminate\Http\Response
     {
         return $this->authorService->indexAuthors();
     }
@@ -39,9 +39,9 @@ class AuthorController extends Controller
      * 
      *  @param Illuminate\Http\Request $request
      * 
-     *  @return array
+     *  @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request): \Illuminate\Http\Response
     {
         return $this->authorService->storeAuthor($request->all());
     }
@@ -51,9 +51,9 @@ class AuthorController extends Controller
      * 
      *  @param string $author
      * 
-     *  @return array
+     *  @return \Illuminate\Http\Response
      */
-    public function show(string $author)
+    public function show(string $author): \Illuminate\Http\Response
     {
         return $this->authorService->showAuthor($author);
     }
@@ -64,9 +64,9 @@ class AuthorController extends Controller
      *  @param Illuminate\Http\Request $request
      *  @param string $author
      * 
-     *  @return array
+     *  @return \Illuminate\Http\Response
      */
-    public function update(Request $request, string $author)
+    public function update(Request $request, string $author): \Illuminate\Http\Response
     {
         return $this->authorService->updateAuthor($request->all(), $author);    
     }
@@ -76,9 +76,9 @@ class AuthorController extends Controller
      * 
      *  @param string $author
      * 
-     *  @return array
+     *  @return \Illuminate\Http\Response
      */
-    public function destroy(string $author)
+    public function destroy(string $author): \Illuminate\Http\Response
     {
         return $this->authorService->destroyAuthor($author);
     }
