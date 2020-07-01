@@ -12,7 +12,7 @@ class BookCollection extends JsonResource
      * @param  \Illuminate\Http\Request  $request
      * @return array
      */
-    public function toArray($request)
+    public function toArray($request): array
     {
         /**
          *  ? If the environment variable: API_GATEWAY_BASE_URL is defined
