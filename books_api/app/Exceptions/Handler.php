@@ -83,7 +83,7 @@ class Handler extends ExceptionHandler
                 "message" => "Method not allowed.",
                 "errors" => [
                     "url" => [
-                        "The {$request->method()} method is not supported for {$request->fullUrl()}"
+                        "The {$request->method()} method is not supported for this route."
                     ]
                 ],
             ], Response::HTTP_METHOD_NOT_ALLOWED);
