@@ -14,7 +14,6 @@ class BookController extends Controller
      */
     public BookService $BookService;
 
-
     /**
      *  Create a new controller instance.
      *
@@ -25,14 +24,14 @@ class BookController extends Controller
         $this->bookService = $bookService;
     }
 
-    /**
-     *  Return the list of books
+     /**
+     *  Get all existing books
      * 
-     *  @return 
+     *  @return array
      */
     public function index()
     {
-        
+        return $this->bookService->indexBooks();
     }
 
     /**
@@ -40,11 +39,11 @@ class BookController extends Controller
      * 
      *  @param Illuminate\Http\Request $request
      * 
-     *  @return 
+     *  @return array
      */
     public function store(Request $request)
     {
-       
+        return $this->bookService->storeBook($request->all());
     }
 
     /**
@@ -52,11 +51,11 @@ class BookController extends Controller
      * 
      *  @param string $book
      * 
-     *  @return
+     *  @return array
      */
     public function show(string $book)
     {
-    
+        return $this->bookService->showBook($book);
     }
 
     /**
@@ -65,22 +64,22 @@ class BookController extends Controller
      *  @param Illuminate\Http\Request $request
      *  @param string $book
      * 
-     *  @return 
+     *  @return array
      */
     public function update(Request $request, string $book)
     {
-    
+        return $this->bookService->updateBook($request->all(), $book);    
     }
 
     /**
-     *  Delete an existing books
+     *  Delete an existing book
      * 
      *  @param string $book
      * 
-     * 
+     *  @return array
      */
     public function destroy(string $book)
     {
-       
+        return $this->bookService->destroyBook($book);
     }
 }

@@ -5,7 +5,7 @@ namespace App\Services;
 class AuthorService
 {
     /**
-     *  Base uri to be consumed in Author Service
+     *  Base uri to be consumed in the Author Service
      * 
      *  @var string
      */
@@ -25,7 +25,7 @@ class AuthorService
     }
 
     /**
-     *  Get all existing authors
+     *  Get all authors
      * 
      *  @return array
      */
