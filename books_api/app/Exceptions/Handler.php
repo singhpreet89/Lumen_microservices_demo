@@ -97,7 +97,7 @@ class Handler extends ExceptionHandler
                         "{$exception->getMessage()}"
                     ]
                 ],
-            ], Response::HTTP_FORBIDDEN);
+            ], Response::HTTP_UNAUTHORIZED);
         }
 
         if ($exception instanceof AuthenticationException) {
