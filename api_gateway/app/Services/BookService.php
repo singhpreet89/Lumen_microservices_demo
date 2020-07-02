@@ -31,7 +31,7 @@ class BookService
      */
     public function indexBooks(): \Illuminate\Http\Response
     {
-        return $this->httpService->performRequest($this->baseUri, "GET", "/books");
+        return $this->httpService->performRequest($this->baseUri, "GET", "books");
     }
 
     /**
@@ -43,7 +43,7 @@ class BookService
      */
     public function storeBook(array $request): \Illuminate\Http\Response
     {
-        return $this->httpService->performRequest($this->baseUri, "POST", "/books", $request);
+        return $this->httpService->performRequest($this->baseUri, "POST", "books", $request);
     }
 
     /**
@@ -55,7 +55,7 @@ class BookService
      */
     public function showBook(string $book): \Illuminate\Http\Response
     {
-        return $this->httpService->performRequest($this->baseUri, "GET", "/books/{$book}");
+        return $this->httpService->performRequest($this->baseUri, "GET", "books/{$book}");
     }
 
     /**
@@ -68,7 +68,7 @@ class BookService
      */
     public function updateBook(array $request, string $book): \Illuminate\Http\Response
     {
-        return $this->httpService->performRequest($this->baseUri, "PUT", "/books/{$book}", $request);
+        return $this->httpService->performRequest($this->baseUri, "PUT", "books/{$book}", $request);
     }
 
     /**
@@ -80,6 +80,6 @@ class BookService
      */
     public function destroyBook(string $book): \Illuminate\Http\Response
     {
-        return $this->httpService->performRequest($this->baseUri, "DELETE", "/books/{$book}");
+        return $this->httpService->performRequest($this->baseUri, "DELETE", "books/{$book}");
     }
 }

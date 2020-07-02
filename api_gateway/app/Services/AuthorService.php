@@ -31,7 +31,7 @@ class AuthorService
      */
     public function indexAuthors(): \Illuminate\Http\Response
     {
-        return $this->httpService->performRequest($this->baseUri, "GET", "/authors");
+        return $this->httpService->performRequest($this->baseUri, "GET", "authors");
     }
 
     /**
@@ -43,7 +43,7 @@ class AuthorService
      */
     public function storeAuthor(array $request): \Illuminate\Http\Response
     {
-        return $this->httpService->performRequest($this->baseUri, "POST", "/authors", $request);
+        return $this->httpService->performRequest($this->baseUri, "POST", "authors", $request);
     }
 
     /**
@@ -55,7 +55,7 @@ class AuthorService
      */
     public function showAuthor(string $author): \Illuminate\Http\Response
     {
-        return $this->httpService->performRequest($this->baseUri, "GET", "/authors/{$author}");
+        return $this->httpService->performRequest($this->baseUri, "GET", "authors/{$author}");
     }
 
     /**
@@ -68,7 +68,7 @@ class AuthorService
      */
     public function updateAuthor(array $request, string $author): \Illuminate\Http\Response
     {
-        return $this->httpService->performRequest($this->baseUri, "PUT", "/authors/{$author}", $request);
+        return $this->httpService->performRequest($this->baseUri, "PUT", "authors/{$author}", $request);
     }
 
     /**
@@ -80,6 +80,6 @@ class AuthorService
      */
     public function destroyAuthor(string $author): \Illuminate\Http\Response
     {
-        return $this->httpService->performRequest($this->baseUri, "DELETE", "/authors/{$author}");
+        return $this->httpService->performRequest($this->baseUri, "DELETE", "authors/{$author}");
     }
 }
