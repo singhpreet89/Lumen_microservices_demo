@@ -12,6 +12,13 @@ class AuthorService
     public string $baseUri;
 
     /**
+     *  Secret to be consumed in the Author Service
+     * 
+     *  @var string
+     */
+    public string $secret;
+
+    /**
      *  Service Object to use the HttpService
      * 
      *  @var HttpService $httpService
@@ -21,6 +28,7 @@ class AuthorService
     public function __construct(HttpService $httpService)
     {
         $this->baseUri = config('services.authors.base_uri');
+        $this->secret = config('services.authors.secret');
         $this->httpService = $httpService;
     }
 
@@ -31,7 +39,7 @@ class AuthorService
      */
     public function indexAuthors(): \Illuminate\Http\Response
     {
-        return $this->httpService->performRequest($this->baseUri, "GET", "authors");
+        return $this->httpService->performRequest($this->baseUri, "authors", "GET", ["Authorization" => $this->secret]);
     }
 
     /**
@@ -43,7 +51,7 @@ class AuthorService
      */
     public function storeAuthor(array $request): \Illuminate\Http\Response
     {
-        return $this->httpService->performRequest($this->baseUri, "POST", "authors", $request);
+        return $this->httpService->performRequest($this->baseUri, "authors", "POST", ["Authorization" => $this->secret], $request);
     }
 
     /**
@@ -55,7 +63,7 @@ class AuthorService
      */
     public function showAuthor(string $author): \Illuminate\Http\Response
     {
-        return $this->httpService->performRequest($this->baseUri, "GET", "authors/{$author}");
+        return $this->httpService->performRequest($this->baseUri, "authors/{$author}", "GET", ["Authorization" => $this->secret]);
     }
 
     /**
@@ -68,7 +76,7 @@ class AuthorService
      */
     public function updateAuthor(array $request, string $author): \Illuminate\Http\Response
     {
-        return $this->httpService->performRequest($this->baseUri, "PUT", "authors/{$author}", $request);
+        return $this->httpService->performRequest($this->baseUri, "authors/{$author}", "PUT", ["Authorization" => $this->secret], $request);
     }
 
     /**
@@ -80,6 +88,6 @@ class AuthorService
      */
     public function destroyAuthor(string $author): \Illuminate\Http\Response
     {
-        return $this->httpService->performRequest($this->baseUri, "DELETE", "authors/{$author}");
+        return $this->httpService->performRequest($this->baseUri, "authors/{$author}", "DELETE", ["Authorization" => $this->secret]);
     }
 }

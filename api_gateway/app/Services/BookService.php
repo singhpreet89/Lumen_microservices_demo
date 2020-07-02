@@ -5,11 +5,18 @@ namespace App\Services;
 class BookService
 {
     /**
-     * Base uri to be consumed in the Book Service
+     *  Base uri to be consumed in the Book Service
      * 
-     * @var string
+     *  @var string
      */
     public string $baseUri;
+
+    /**
+     *  Secret to be consumed in the Book Service
+     * 
+     *  @var string
+     */
+    public string $secret;
 
     /**
      *  Service Object to use the HttpService
@@ -21,6 +28,7 @@ class BookService
     public function __construct(HttpService $httpService)
     {
         $this->baseUri = config('services.books.base_uri');
+        $this->secret = config('services.books.secret');
         $this->httpService = $httpService;
     }
 
@@ -31,7 +39,7 @@ class BookService
      */
     public function indexBooks(): \Illuminate\Http\Response
     {
-        return $this->httpService->performRequest($this->baseUri, "GET", "books");
+        return $this->httpService->performRequest($this->baseUri, "books", "GET", ["Authorization" => $this->secret]);
     }
 
     /**
@@ -43,7 +51,7 @@ class BookService
      */
     public function storeBook(array $request): \Illuminate\Http\Response
     {
-        return $this->httpService->performRequest($this->baseUri, "POST", "books", $request);
+        return $this->httpService->performRequest($this->baseUri, "books", "POST", ["Authorization" => $this->secret], $request);
     }
 
     /**
@@ -55,7 +63,7 @@ class BookService
      */
     public function showBook(string $book): \Illuminate\Http\Response
     {
-        return $this->httpService->performRequest($this->baseUri, "GET", "books/{$book}");
+        return $this->httpService->performRequest($this->baseUri, "books/{$book}", "GET", ["Authorization" => $this->secret]);
     }
 
     /**
@@ -68,7 +76,7 @@ class BookService
      */
     public function updateBook(array $request, string $book): \Illuminate\Http\Response
     {
-        return $this->httpService->performRequest($this->baseUri, "PUT", "books/{$book}", $request);
+        return $this->httpService->performRequest($this->baseUri, "books/{$book}", "PUT", ["Authorization" => $this->secret], $request);
     }
 
     /**
@@ -80,6 +88,6 @@ class BookService
      */
     public function destroyBook(string $book): \Illuminate\Http\Response
     {
-        return $this->httpService->performRequest($this->baseUri, "DELETE", "books/{$book}");
+        return $this->httpService->performRequest($this->baseUri, "books/{$book}", "DELETE", ["Authorization" => $this->secret]);
     }
 }
