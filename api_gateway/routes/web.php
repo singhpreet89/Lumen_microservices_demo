@@ -13,8 +13,7 @@
 |
 */
 
-$router->group(['middleware' => 'client.credentials'], function() use($router) {
-    
+$router->group(['middleware' => 'client.credentials'], function () use ($router) {
     /**
      *  Authors routes
      */
@@ -31,5 +30,24 @@ $router->group(['middleware' => 'client.credentials'], function() use($router) {
     $router->post('books', ['as' => 'books.store', 'uses' => 'BookController@store']);
     $router->get('books/{book}', ['as' => 'books.show', 'uses' => 'BookController@show']);
     $router->put('books/{book}', ['as' => 'books.update', 'uses' => 'BookController@update']);
-    $router->delete('books/{book}', ['as' => 'books.destroy', 'uses' => 'BookController@destroy']);    
+    $router->delete('books/{book}', ['as' => 'books.destroy', 'uses' => 'BookController@destroy']);
+
+    /**
+     *  Users routes
+     */
+    $router->get('users', ['as' => 'users.index', 'uses' => 'UserController@index']);
+    $router->post('users', ['as' => 'users.store', 'uses' => 'UserController@store']);
+    $router->get('users/{user}', ['as' => 'users.show', 'uses' => 'UserController@show']);
+    $router->put('users/{user}', ['as' => 'users.update', 'uses' => 'UserController@update']);
+    $router->delete('users/{user}', ['as' => 'users.destroy', 'uses' => 'UserController@destroy']);
+});
+
+
+/**
+ *  Users /me route
+ *  @Middlware auth
+ *  @Guard api
+ */
+$router->group(['middleware' => 'auth:api'], function () use ($router) {
+    $router->get('users/me', ['as' => 'users.me', 'uses' => 'UserController@me']);
 });
